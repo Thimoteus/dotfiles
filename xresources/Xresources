@@ -1,0 +1,33 @@
+#include "/home/thimoteus/.colors/base16-chalk.dark.256.xresources"
+
+! antialias for performance(?) reasons
+URxvt*letterSpace: 1
+URxvt*font:xft:creep:size=7:antialias=false
+
+URxvt*selectToClipboard: true
+xterm*termName: xterm-256color
+
+URxvt*boldMode:      on
+URxvt*colorMode:     on
+URxvt*colorBDMode:   on
+URxvt*colorULMode:   on
+URxvt*underLine:     on
+URxvt*internalBorder: 0
+!URxvt*borderLess: true
+
+! transparency
+! URxvt*.transparent: true
+! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
+! URxvt*.shading: 10
+!URxvt.depth: 32
+!URxvt.background: [75]#000000
+
+! scrollbar
+URxvt.scrollBar: false
+
+! URLs
+URxvt.perl-ext-common: default,selection-to-clipboard,url-select,keyboard-select
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.url-select.launcher: /usr/bin/qutebrowser
+URxvt.url-select.underline: true
+URxvt.keysym.M-Escape: perl:keyboard-select:activate

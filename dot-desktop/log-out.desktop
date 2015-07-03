@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Log out
+Comment=log out of i3
+Exec=i3-msg exit
+

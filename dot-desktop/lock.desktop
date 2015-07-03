@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Lock
+Comment=locks the i3 desktop
+Exec=lock
+

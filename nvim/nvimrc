@@ -1,0 +1,89 @@
+"package manager
+set nocompatible
+filetype off
+set rtp+=~/.nvim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-surround'
+Bundle 'chriskempson/base16-vim'
+Bundle 'edkolev/tmuxline.vim'
+" Bundle 'enomsg/vim-haskellConcealPlus'
+
+"highlighting
+syntax on
+filetype plugin indent on
+
+" leader
+
+" sets H, L to beginning, end of line
+nnoremap H ^
+nnoremap L $
+
+" tab switching
+nnoremap <Leader>[ :bp<cr>
+nnoremap <Leader>] :bn<cr>
+
+"displays line numbers
+set number
+
+"shows which line the cursor is on
+set cursorline
+
+"lets you open new buffers without writing changes to old ones
+set hidden
+
+"tab settings
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+"colorscheme
+let base16colorspace=256  " Access colors present in 256 colorspace
+set background=dark
+colorscheme base16-chalk
+
+" Tab completion
+function! Inserttabwrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
+endfunction
+" Map <tab> to Inserttabwarpper()
+inoremap <tab> <c-r>=Inserttabwrapper()<cr>
+
+" don't remember what this does
+set laststatus=2
+
+" annoying paste indent fix
+set copyindent
+
+" airline theme
+let g:airline_theme='base16'
+let g:airline_powerline_fonts=1
+
+" copy+pasting
+:command -range Cz :silent :<line1>,<line2>w !xsel -i -b
+:command -range Cx :silent :<line1>,<line2>w !xsel -i -p
+:command -range Cv :silent :<line1>,<line2>w !xsel -i -s
+:cabbrev cv Cv
+:cabbrev cz Cz
+:cabbrev cx Cx
+:command -range Pz :silent :r !xsel -o -b
+:command -range Px :silent :r !xsel -o -p
+:command -range Pv :silent :r !xsel -o -s
+:cabbrev pz Pz
+:cabbrev px Px
+:cabbrev pv Pv
+
+" visible line for wrapping
+highlight ColorColumn ctermbg=236
+set colorcolumn=80
+hi CursorLine ctermbg=236 ctermfg=NONE guibg=#303030 guifg=NONE cterm=NONE gui=NONE
+
+" makes split windows default to the right
+set splitright
+
