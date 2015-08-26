@@ -2,5 +2,5 @@
 Type=Application
 Name=Lock
 Comment=locks the i3 desktop
-Exec=lock
+Exec=lock ~/pictures/lock-icon.png
 

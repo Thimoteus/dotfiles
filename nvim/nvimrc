@@ -1,21 +1,31 @@
 "package manager
 set nocompatible
 filetype off
-set rtp+=~/.nvim/bundle/vundle/
-call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-surround'
-Bundle 'chriskempson/base16-vim'
-Bundle 'edkolev/tmuxline.vim'
-" Bundle 'enomsg/vim-haskellConcealPlus'
+call plug#begin('~/.nvim/plugged')
+
+Plug 'gmarik/vundle'
+Plug 'tpope/vim-surround'
+Plug 'chriskempson/base16-vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'raichoo/purescript-vim'
+Plug 'itchyny/lightline.vim'
+Plug 'Twinside/vim-haskellConceal'
+Plug 'airblade/vim-gitgutter'
+Plug 'ap/vim-buftabline'
+Plug 'Thimoteus/vim-slime'
+Plug 'idris-hackers/idris-vim'
+
+call plug#end()
 
 "highlighting
 syntax on
 filetype plugin indent on
 
-" leader
+" POSIX compatibility
+set shell=/bin/bash
 
+" leader
 " sets H, L to beginning, end of line
 nnoremap H ^
 nnoremap L $
@@ -23,6 +33,13 @@ nnoremap L $
 " tab switching
 nnoremap <Leader>[ :bp<cr>
 nnoremap <Leader>] :bn<cr>
+nnoremap <M-h> :bp<cr>
+nnoremap <M-l> :bn<cr>
+
+" copy+paste
+vnoremap <c-x> "+x
+vnoremap <c-c> "+y
+vnoremap <c-p> "+p
 
 "displays line numbers
 set number
@@ -61,29 +78,55 @@ set laststatus=2
 " annoying paste indent fix
 set copyindent
 
-" airline theme
-let g:airline_theme='base16'
-let g:airline_powerline_fonts=1
+" lightline stuff
 
-" copy+pasting
-:command -range Cz :silent :<line1>,<line2>w !xsel -i -b
-:command -range Cx :silent :<line1>,<line2>w !xsel -i -p
-:command -range Cv :silent :<line1>,<line2>w !xsel -i -s
-:cabbrev cv Cv
-:cabbrev cz Cz
-:cabbrev cx Cx
-:command -range Pz :silent :r !xsel -o -b
-:command -range Px :silent :r !xsel -o -p
-:command -range Pv :silent :r !xsel -o -s
-:cabbrev pz Pz
-:cabbrev px Px
-:cabbrev pv Pv
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"⭤":""}',
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
 
 " visible line for wrapping
 highlight ColorColumn ctermbg=236
-set colorcolumn=80
+set colorcolumn=120
 hi CursorLine ctermbg=236 ctermfg=NONE guibg=#303030 guifg=NONE cterm=NONE gui=NONE
 
 " makes split windows default to the right
 set splitright
+
+" disable highlighting search terms with space
+:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" syntax highlighting
+au BufRead,BufNewFile *.sand set filetype=clojure
+
+" vim-slime
+let g:slime_target="tmux"
+
+" tmuxline
+"let g:tmuxline_powerline_separators = 0
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': '>',
+    \ 'right' : '',
+    \ 'right_alt' : '<',
+    \ 'space' : ' '}
+let g:tmuxline_theme = {
+    \   'a'    : [ 236, 103 ],
+    \   'b'    : [ 253, 239 ],
+    \   'c'    : [ 244, 236 ],
+    \   'x'    : [ 244, 236 ],
+    \   'y'    : [ 253, 239 ],
+    \   'z'    : [ 236, 103 ],
+    \   'win'  : [ 103, 236 ],
+    \   'cwin' : [ 236, 103 ],
+    \   'bg'   : [ 244, 236 ],
+    \ }
+
+" invisibles
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+nnoremap <Leader>i :set list!<cr>
 
