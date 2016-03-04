@@ -1,2 +1,0 @@
-typeset -U path
-path=(/usr/lib/hardening-wrapper/bin /usr/local/sbin /usr/local/bin /usr/bin /usr/lib/jvm/default/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl ~/bin/ ~/.gem/ruby/2.2.0/bin/ ~/.cabal/bin/ /usr/bin/vendor_perl/)

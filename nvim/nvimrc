@@ -7,14 +7,26 @@ call plug#begin('~/.nvim/plugged')
 Plug 'gmarik/vundle'
 Plug 'tpope/vim-surround'
 Plug 'chriskempson/base16-vim'
-Plug 'edkolev/tmuxline.vim'
 Plug 'raichoo/purescript-vim'
-Plug 'itchyny/lightline.vim'
-Plug 'Twinside/vim-haskellConceal'
+Plug 'Thimoteus/vim-purescriptConceal'
+Plug 'bling/vim-airline'
+Plug 'edkolev/promptline.vim'
+Plug 'morhetz/gruvbox'
+Plug 'frigoeu/psc-ide-vim'
+Plug 'whatyouhide/vim-gotham'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-gitgutter'
-Plug 'ap/vim-buftabline'
-Plug 'Thimoteus/vim-slime'
-Plug 'idris-hackers/idris-vim'
+Plug 'Twinside/vim-haskellConceal'
+"Plug 'scrooloose/syntastic'
+"Plug 'edkolev/tmuxline.vim'
+"Plug 'itchyny/lightline.vim'
+"Plug 'ap/vim-buftabline'
+"Plug 'terryma/vim-multiple-cursors'
+"Plug 'bling/vim-bufferline'
+"Plug 'Thimoteus/vim-slime'
+"Plug 'idris-hackers/idris-vim'
+"Plug 'travitch/hasksyn'
 
 call plug#end()
 
@@ -25,24 +37,29 @@ filetype plugin indent on
 " POSIX compatibility
 set shell=/bin/bash
 
-" leader
-" sets H, L to beginning, end of line
-nnoremap H ^
-nnoremap L $
+"colorscheme
+let base16colorspace=256  " Access colors present in 256 colorspace
+"set background=dark
+"colorscheme base16-grayscale
+colorscheme gotham
+
+" annoying
+map <C-p> <Nop>
 
 " tab switching
-nnoremap <Leader>[ :bp<cr>
-nnoremap <Leader>] :bn<cr>
 nnoremap <M-h> :bp<cr>
 nnoremap <M-l> :bn<cr>
 
 " copy+paste
-vnoremap <c-x> "+x
-vnoremap <c-c> "+y
-vnoremap <c-p> "+p
+vnoremap <C-x> "+x
+vnoremap <C-c> "+y
+vnoremap <C-p> "+p
+
+" destroy tabs -- conflicts with moving focus from pane to pane
+" nnoremap <C-w> :bd<cr>
 
 "displays line numbers
-set number
+"set number
 
 "shows which line the cursor is on
 set cursorline
@@ -55,11 +72,6 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-"colorscheme
-let base16colorspace=256  " Access colors present in 256 colorspace
-set background=dark
-colorscheme base16-chalk
-
 " Tab completion
 function! Inserttabwrapper()
   let col = col('.') - 1
@@ -69,10 +81,10 @@ function! Inserttabwrapper()
     return "\<c-p>"
   endif
 endfunction
-" Map <tab> to Inserttabwarpper()
+" Map <tab> to Inserttabwrapper()
 inoremap <tab> <c-r>=Inserttabwrapper()<cr>
 
-" don't remember what this does
+" shows lightline
 set laststatus=2
 
 " annoying paste indent fix
@@ -80,19 +92,21 @@ set copyindent
 
 " lightline stuff
 
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'component': {
-      \   'readonly': '%{&readonly?"⭤":""}',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
+"let g:lightline = {
+      "\ 'colorscheme': 'powerline',
+      "\ 'component': {
+      "\   'readonly': '%{&readonly?"":""}',
+      "\ },
+      "\ 'subseparator': { 'left': '', 'right': '' },
+      "\ 'separator': { 'left': '', 'right': '' },
+      "\ }
+
 
 " visible line for wrapping
-highlight ColorColumn ctermbg=236
-set colorcolumn=120
-hi CursorLine ctermbg=236 ctermfg=NONE guibg=#303030 guifg=NONE cterm=NONE gui=NONE
+" 253 for light, 233/236 for dark
+highlight ColorColumn ctermbg=234
+set colorcolumn=80
+hi CursorLine ctermbg=234 ctermfg=NONE guibg=#ffffff guifg=NONE cterm=NONE gui=NONE
 
 " makes split windows default to the right
 set splitright
@@ -100,33 +114,61 @@ set splitright
 " disable highlighting search terms with space
 :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
+" markdown highlighting
+let g:markdown_fenced_languages = ['purescript']
+
 " syntax highlighting
 au BufRead,BufNewFile *.sand set filetype=clojure
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown,*.litps setlocal filetype=markdown
+augroup END
 
 " vim-slime
 let g:slime_target="tmux"
 
-" tmuxline
-"let g:tmuxline_powerline_separators = 0
-let g:tmuxline_separators = {
-    \ 'left' : '',
-    \ 'left_alt': '>',
-    \ 'right' : '',
-    \ 'right_alt' : '<',
-    \ 'space' : ' '}
-let g:tmuxline_theme = {
-    \   'a'    : [ 236, 103 ],
-    \   'b'    : [ 253, 239 ],
-    \   'c'    : [ 244, 236 ],
-    \   'x'    : [ 244, 236 ],
-    \   'y'    : [ 253, 239 ],
-    \   'z'    : [ 236, 103 ],
-    \   'win'  : [ 103, 236 ],
-    \   'cwin' : [ 236, 103 ],
-    \   'bg'   : [ 244, 236 ],
-    \ }
-
 " invisibles
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 nnoremap <Leader>i :set list!<cr>
+
+" airline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#whitespace#enabled = 1
+let g:airline_theme = "gotham"
+nmap <M-1> <Plug>AirlineSelectTab1
+nmap <M-2> <Plug>AirlineSelectTab2
+nmap <M-3> <Plug>AirlineSelectTab3
+nmap <M-4> <Plug>AirlineSelectTab4
+nmap <M-5> <Plug>AirlineSelectTab5
+nmap <M-6> <Plug>AirlineSelectTab6
+nmap <M-7> <Plug>AirlineSelectTab7
+nmap <M-8> <Plug>AirlineSelectTab8
+nmap <M-9> <Plug>AirlineSelectTab9
+"gruvbox
+
+" purescript remaps
+au FileType purescript nnoremap <Leader>t :PSCIDEtype<CR>
+au FileType purescript nnoremap <Leader>a :PSCIDEapplySuggestion<CR>
+
+" abbreviations
+au FileType purescript iabbrev forallf ∀
+au FileType purescript iabbrev <<<f ∘
+au FileType purescript iabbrev *f ×
+au FileType purescript iabbrev &&f ∧
+au FileType purescript iabbrev \|\|f ∨
+au FileType purescript iabbrev elemf ∈
+au FileType purescript iabbrev notElemf ∉
+au FileType purescript iabbrev notEqf ≠
+au FileType purescript iabbrev ltef ≤
+au FileType purescript iabbrev gtef ≥
+au FileType purescript iabbrev =>f ⇒
+au FileType purescript iabbrev ->f →
+au FileType purescript iabbrev <=f ⇐
+au FileType purescript iabbrev <-f ←
+
+" for concealing
+set concealcursor=
 

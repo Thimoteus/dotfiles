@@ -1,9 +1,17 @@
-#include "/home/thimoteus/.colors/base16-chalk.dark.256.xresources"
+! #include "/home/thimoteus/.colors/base16-grayscale.dark.256.xresources"
+! #include "/home/thimoteus/.colors/gruvbox-light.xresources"
+#include "/home/thimoteus/.colors/gotham.xresources"
 
 ! antialias for performance(?) reasons
-URxvt*letterSpace: 1
-URxvt*font:xft:creep:size=8:antialias=false
-!URxvt*font:xft:lemon:size=8:antialias=false
+URxvt.letterSpace: 1
+!#define termfont xft:bitbuntufull:size=8,xft:Inconsolata For Powerline:size=10:antialias=true,xft:lemon:size=7,xft:TamzenForPowerline:size=10,xft:Terminess Powerline:size=10,xft:FontAwesome:size=8
+#define termfont xft:crepe:size=7:minspace=true,xft:Inconsolata For Powerline:pixelsize=16:antialias=true,-*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*
+!-*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*,xft:Inconsolata For Powerline:size=10:antialias=true
+
+URxvt*font: termfont
+!URxvt*boldFont: termfont
+URxvt*italicFont: termfont
+URxvt*boldItalicFont: termfont
 
 URxvt*selectToClipboard: true
 xterm*termName: xterm-256color
@@ -13,15 +21,20 @@ URxvt*colorMode:     on
 URxvt*colorBDMode:   on
 URxvt*colorULMode:   on
 URxvt*underLine:     on
-URxvt*internalBorder: 0
+URxvt*internalBorder: 4
 !URxvt*borderLess: true
 
 ! transparency
-! URxvt*.transparent: true
+!URxvt*.transparent: true
 ! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
-! URxvt*.shading: 10
+!URxvt*.shading: 10
 !URxvt.depth: 32
 !URxvt.background: [75]#000000
+
+!dzen
+dzen2.font:lemon:size=8
+dzen2.foreground:#aaaaaa
+dzen2.background:black
 
 ! scrollbar
 URxvt.scrollBar: false
@@ -29,6 +42,15 @@ URxvt.scrollBar: false
 ! URLs
 URxvt.perl-ext-common: default,selection-to-clipboard,url-select,keyboard-select
 URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.url-select.launcher: /usr/bin/qutebrowser
+URxvt.url-select.launcher: /usr/bin/icecat
 URxvt.url-select.underline: true
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
+
+! infinality
+!Xft.antialias: 1
+!Xft.autohint: 0
+!Xft.dpi: 96
+!Xft.hinting: 1
+!Xft.hintstyle: hintfull
+!Xft.lcdfilter: lcddefault
+!Xft.rgba: rgb
