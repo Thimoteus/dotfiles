@@ -10,6 +10,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'raichoo/purescript-vim'
 Plug 'Thimoteus/vim-purescriptConceal'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/promptline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'frigoeu/psc-ide-vim'
@@ -19,7 +20,7 @@ Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-gitgutter'
 Plug 'Twinside/vim-haskellConceal'
 "Plug 'scrooloose/syntastic'
-"Plug 'edkolev/tmuxline.vim'
+Plug 'edkolev/tmuxline.vim'
 "Plug 'itchyny/lightline.vim'
 "Plug 'ap/vim-buftabline'
 "Plug 'terryma/vim-multiple-cursors'
@@ -39,9 +40,9 @@ set shell=/bin/bash
 
 "colorscheme
 let base16colorspace=256  " Access colors present in 256 colorspace
-"set background=dark
+set background=dark
 "colorscheme base16-grayscale
-colorscheme gotham
+colorscheme gruvbox
 
 " annoying
 map <C-p> <Nop>
@@ -90,23 +91,11 @@ set laststatus=2
 " annoying paste indent fix
 set copyindent
 
-" lightline stuff
-
-"let g:lightline = {
-      "\ 'colorscheme': 'powerline',
-      "\ 'component': {
-      "\   'readonly': '%{&readonly?"":""}',
-      "\ },
-      "\ 'subseparator': { 'left': '', 'right': '' },
-      "\ 'separator': { 'left': '', 'right': '' },
-      "\ }
-
-
 " visible line for wrapping
 " 253 for light, 233/236 for dark
-highlight ColorColumn ctermbg=234
+highlight ColorColumn ctermbg=236
 set colorcolumn=80
-hi CursorLine ctermbg=234 ctermfg=NONE guibg=#ffffff guifg=NONE cterm=NONE gui=NONE
+hi CursorLine ctermbg=236 ctermfg=NONE guibg=#ffffff guifg=NONE cterm=NONE gui=NONE
 
 " makes split windows default to the right
 set splitright
@@ -137,7 +126,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#whitespace#enabled = 1
-let g:airline_theme = "gotham"
+let g:airline_theme = "gruvbox"
 nmap <M-1> <Plug>AirlineSelectTab1
 nmap <M-2> <Plug>AirlineSelectTab2
 nmap <M-3> <Plug>AirlineSelectTab3

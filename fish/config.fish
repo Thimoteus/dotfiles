@@ -16,11 +16,6 @@ function cd
   ls
 end
 
-# check the blacklist
-function blacklist
-  cat /usr/share/doc/your-freedom/blacklist.txt | grep $argv
-end
-
 # enable vi mode
 fish_vi_mode
 
@@ -51,10 +46,6 @@ set EDITOR nvim
 set RANGER_LOAD_DEFAULT_RC FALSE
 
 #aliases
-alias spacemacs "emacs -nw"
-#72.202.184.126
-alias vps "ssh -t -p 1005 thimoteus@unixbird.windowskrill.me tmux new-session -A -s thimotron"
-alias vps-command "ssh -p 1005 thimoteus@unixbird.windowskrill.me "
 alias pastebin "curl -F 'sprunge=<-' http://sprunge.us"
 alias irc "tmux new-session -A -s irc"
 alias zirc "ssh -t thimotron@192.168.1.5 tmux new-session -A -s irc"

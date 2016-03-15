@@ -36,7 +36,7 @@ conf = defaultConfig { terminal = "urxvt"
                      , focusFollowsMouse = False
                      , normalBorderColor = "#000000"
                      , focusedBorderColor = "#19c4e1"
-                     , borderWidth = 0
+                     , borderWidth = 2
                      , workspaces = myWorkspaces
                      , manageHook = foldMap id [ manageDocks
                        , manageHook defaultConfig
@@ -82,10 +82,10 @@ j4dmenudesktop = "j4-dmenu-desktop --dmenu=\"dmenu -i -q -p '>>=' -x 450 -y 400 
 dmenuStyle = init $ drop 32 j4dmenudesktop
 passmenu = "passmenu " ++ dmenuStyle
 
-keyBinds = [ ("M-<Return>", spawn "urxvt -cd \"`xcwd`\" -e fish")
-           -- , ("M-t", spawn "urxvt -cd \"`xcwd`\" -e fish")
+keyBinds = [ ("M-<Return>", spawn "urxvt -e fish")
            , ("<Print>", spawn "scrot ~/Pictures/screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png")
-           , ("M-<Space>", spawn j4dmenudesktop)
+           -- , ("M-<Space>", spawn j4dmenudesktop)
+	   , ("M-<Space>", spawn "j4-dmenu-desktop")
            , ("M-q", spawn "xmonad --recompile && xmonad --restart")
            , ("M-S-q", kill)
            , ("M-S-C-q", io $ exitWith ExitSuccess)
@@ -113,8 +113,10 @@ keyBinds = [ ("M-<Return>", spawn "urxvt -cd \"`xcwd`\" -e fish")
            , ("<XF86AudioPrev>", spawn "playerctl previous || mocp --previous")
            , ("<XF86AudioStop>", spawn "playerctl stop || mocp --stop")
            , ("<XF86Sleep>", spawn "systemctl suspend")
-           , ("<XF86Launch1>", spawn "pulseaudio-ctl mute") -- "pactl set-sink-mute @DEFAULT_SINK@ toggle")
-           , ("<XF86AudioRaiseVolume>", spawn "pulseaudio-ctl up") -- "pactl set-sink-volume @DEFAULT_SINK@ +5%")
-           , ("<XF86AudioLowerVolume>", spawn "pulseaudio-ctl down") ] --"pactl set-sink-volume @DEFAULT_SINK@ -5%") ]
+           , ("<F6>", spawn "light -U 5")
+           , ("<F7>", spawn "light -A 5")
+           , ("<F8>", spawn "pulseaudio-ctl mute") -- "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+           , ("<F10>", spawn "pulseaudio-ctl up") -- "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+           , ("<F9>", spawn "pulseaudio-ctl down") ] --"pactl set-sink-volume @DEFAULT_SINK@ -5%") ]
 
 

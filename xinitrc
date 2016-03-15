@@ -64,13 +64,13 @@ fi
 #esac
 
 #nitrogen --restore &
-#feh --randomize --bg-fill ~/Pictures/wallpapers/* &
-feh --bg-fill ~/Pictures/wallpapers/gotham.png &
-xfce4-power-manager &
+#xfce4-power-manager &
+feh --randomize --bg-fill ~/Pictures/* &
+synclient HorizTwoFingerScroll=1 TapButton1=0 TapButton2=3 TapButton3=2 &
 xset m 5/1 0 &
 xsetroot -cursor_name left_ptr &
-unclutter &
-setxkbmap -option caps:swapescape &
-compton &
-redshift &
+#unclutter &
+#setxkbmap -option caps:swapescape &
+#compton &
+#redshift &
 exec xmonad
