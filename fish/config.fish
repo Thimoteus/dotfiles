@@ -39,6 +39,7 @@ set PATH ~/bin/ $PATH
 set PATH /usr/bin/core_perl $PATH
 set PATH ~/.local/bin/ $PATH
 set PATH ~/.psvm/current/bin/ $PATH
+set PATH ~/.cabal/bin/ $PATH
 
 #bass source ~/dotfiles/base16-chalk.dark.sh
 
