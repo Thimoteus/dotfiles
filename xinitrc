@@ -71,6 +71,6 @@ xset m 5/1 0 &
 xsetroot -cursor_name left_ptr &
 #unclutter &
 #setxkbmap -option caps:swapescape &
-#compton &
-#redshift &
+compton --config ~/dotfiles/compton.conf -b &
+xbindkeys
 exec xmonad

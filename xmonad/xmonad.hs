@@ -23,6 +23,8 @@ import XMonad.Layout.Groups.Helpers
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.EqualSpacing
 
+import XMonad.Actions.CycleWS
+
 import System.Exit
 import System.IO
 
@@ -36,7 +38,7 @@ conf = defaultConfig { terminal = "urxvt"
                      , focusFollowsMouse = False
                      , normalBorderColor = "#000000"
                      , focusedBorderColor = "#19c4e1"
-                     , borderWidth = 2
+                     , borderWidth = 0
                      , workspaces = myWorkspaces
                      , manageHook = foldMap id [ manageDocks
                        , manageHook defaultConfig
@@ -64,14 +66,13 @@ myLayout = (avoidStruts . smartBorders) (equalSpacing 6 6 0 1 emptyBSP) ||| noBo
 
 myWorkspaces = [ "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X" ]
 
-j4dmenudesktop = "j4-dmenu-desktop --dmenu=\"dmenu -i -q -p '>>=' -x 450 -y 400 -h 15 -w 380 -l 0 -nb '#2b303b' -nf '#8fa1b3' -sb '#8fa1b3' -sf '#2b303b' -dim 0.8 -fn 'bitocra7:size=5'\""
+j4dmenudesktop = "j4-dmenu-desktop --dmenu=\"dmenu -i -fn lemon -p '>>='\""
 dmenuStyle = init $ drop 32 j4dmenudesktop
 passmenu = "passmenu " ++ dmenuStyle
 
 keyBinds = [ ("M-<Return>", spawn "urxvt -e fish")
            , ("<Print>", spawn "scrot ~/Pictures/screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png")
-           -- , ("M-<Space>", spawn j4dmenudesktop)
-           , ("M-<Space>", spawn "j4-dmenu-desktop")
+           , ("M-<Space>", spawn j4dmenudesktop)
            , ("M-q", spawn "xmonad --recompile && xmonad --restart")
            , ("M-S-q", kill)
            , ("M-S-C-q", io $ exitWith ExitSuccess)
@@ -80,6 +81,7 @@ keyBinds = [ ("M-<Return>", spawn "urxvt -e fish")
            , ("M-b", spawn "notify-send \"`acpi --battery`\"")
            , ("M-r", spawn "~/bin/redshiftoggle")
            , ("M-y", toggleFocusFloat)
+           , ("C-M1-l", spawn "lock")
            , ("M-`", namedScratchpadAction scratchpads "terminal")
            , ("M-p", spawn passmenu)
            , ("M-[", sendMessage LessSpacing)
@@ -97,10 +99,12 @@ keyBinds = [ ("M-<Return>", spawn "urxvt -e fish")
            , ("<XF86AudioPrev>", spawn "playerctl previous || mocp --previous")
            , ("<XF86AudioStop>", spawn "playerctl stop || mocp --stop")
            , ("<XF86Sleep>", spawn "systemctl suspend")
-           , ("<F6>", spawn "light -U 2")
-           , ("<F7>", spawn "light -A 2")
-           , ("<F8>", spawn "pulseaudio-ctl mute")
-           , ("<F10>", spawn "pulseaudio-ctl up")
-           , ("<F9>", spawn "pulseaudio-ctl down") ]
+           , ("M-<F1>", prevWS)
+           , ("M-<F2>", nextWS)
+           , ("M-<F6>", spawn "light -U 2")
+           , ("M-<F7>", spawn "light -A 2")
+           , ("M-<F8>", spawn "pulseaudio-ctl mute")
+           , ("M-<F10>", spawn "pulseaudio-ctl up")
+           , ("M-<F9>", spawn "pulseaudio-ctl down") ]
 
 

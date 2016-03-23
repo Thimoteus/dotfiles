@@ -34,12 +34,16 @@ end
 # source pass stuff
 source ~/dotfiles/fish/pass.fish-completion
 
+# for global npm without sudo
+set NPM_PACKAGES ~/.npm-packages/
+
 # add bin path
 set PATH ~/bin/ $PATH
 set PATH /usr/bin/core_perl $PATH
 set PATH ~/.local/bin/ $PATH
 set PATH ~/.psvm/current/bin/ $PATH
 set PATH ~/.cabal/bin/ $PATH
+set PATH $NPM_PACKAGES/bin $PATH
 
 #bass source ~/dotfiles/base16-chalk.dark.sh
 
@@ -51,3 +55,4 @@ alias pastebin "curl -F 'sprunge=<-' http://sprunge.us"
 alias irc "tmux new-session -A -s irc"
 alias zirc "ssh -t thimotron@192.168.1.5 tmux new-session -A -s irc"
 alias gotosleep "xautolock -time 60 -locker 'systemctl poweroff'"
+alias ssherver "ssh -t thimotron@192.168.1.5 tmux new-session -A -s archurito"
