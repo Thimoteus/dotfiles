@@ -1,6 +1,6 @@
 
 [global]
-    font = Terminus 9
+    font = lemon 7
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -32,7 +32,7 @@
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
-    alignment = left
+    alignment = center
 
     # The frequency with which text that is longer than the notification
     # window allows bounces back and forth.
@@ -65,11 +65,11 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-40+30"
+    geometry = "200x5-0+9"
 
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
-    shrink = no
+    shrink = yes
 
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
@@ -140,13 +140,13 @@
     dmenu = /usr/bin/dmenu -p dunst:
 
     # Browser for opening urls in context menu.
-    browser = /usr/bin/iceweasel -new-tab
+    browser = /usr/bin/firefox -new-tab
 
     # Align icons left/right/off
-    icon_position = off
+    icon_position = left
 
     # Paths to default icons.
-    icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_folders = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/
 
 [frame]
     width = 1
@@ -182,7 +182,7 @@
 
 [urgency_normal]
     background = "#222222"
-    foreground = "#568081"
+    foreground = "#828282"
     timeout = 5
 
 [urgency_critical]

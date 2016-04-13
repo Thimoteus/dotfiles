@@ -1,15 +1,10 @@
-! #include "/home/archurito/.colors/base16-grayscale.dark.256.xresources"
 #include "/home/archurito/.colors/gruvbox-dark.xresources"
-! #include "/home/archurito/.colors/gotham.xresources"
 
 ! antialias for performance(?) reasons
 URxvt.letterSpace: 1
-!#define termfont xft:bitbuntufull:size=8,xft:Inconsolata For Powerline:size=10:antialias=true,xft:lemon:size=7,xft:TamzenForPowerline:size=10,xft:Terminess Powerline:size=10,xft:FontAwesome:size=8
 #define termfont xft:ordinal:size=7:minspace=true,xft:Inconsolata For Powerline:pixelsize=16:antialias=true,-*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*
-!#define termfont -*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*,xft:Inconsolata For Powerline:size=10:antialias=true
 
 URxvt*font: termfont
-!URxvt*boldFont: termfont
 URxvt*italicFont: termfont
 URxvt*boldItalicFont: termfont
 
@@ -21,20 +16,7 @@ URxvt*colorMode:     on
 URxvt*colorBDMode:   on
 URxvt*colorULMode:   on
 URxvt*underLine:     on
-URxvt*internalBorder: 4
-!URxvt*borderLess: true
-
-! transparency
-!URxvt*.transparent: true
-! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
-!URxvt*.shading: 10
-!URxvt.depth: 32
-!URxvt.background: [75]#000000
-
-!dzen
-dzen2.font:lemon:size=8
-dzen2.foreground:#aaaaaa
-dzen2.background:black
+URxvt*internalBorder: 10
 
 ! scrollbar
 URxvt.scrollBar: false
@@ -46,11 +28,3 @@ URxvt.url-select.launcher: /usr/bin/firefox
 URxvt.url-select.underline: true
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 
-! infinality
-!Xft.antialias: 1
-!Xft.autohint: 0
-!Xft.dpi: 96
-!Xft.hinting: 1
-!Xft.hintstyle: hintfull
-!Xft.lcdfilter: lcddefault
-!Xft.rgba: rgb

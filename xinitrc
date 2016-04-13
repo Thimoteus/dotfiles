@@ -65,12 +65,13 @@ fi
 
 #nitrogen --restore &
 #xfce4-power-manager &
-feh --randomize --bg-fill ~/Pictures/* &
+feh --bg-fill ~/Pictures/background.jpg &
 synclient HorizTwoFingerScroll=1 TapButton1=0 TapButton2=3 TapButton3=2 &
 xset m 5/1 0 &
 xsetroot -cursor_name left_ptr &
 #unclutter &
 #setxkbmap -option caps:swapescape &
 compton --config ~/dotfiles/compton.conf -b &
-xbindkeys
+touch /tmp/current_control_Speaker &
+xbindkeys &
 exec xmonad
