@@ -39,9 +39,9 @@ set shell=/bin/bash
 
 "colorscheme
 let base16colorspace=256  " Access colors present in 256 colorspace
-"set background=dark
+set background=light
 "colorscheme base16-grayscale
-colorscheme gotham
+colorscheme gruvbox
 
 " annoying
 map <C-p> <Nop>
