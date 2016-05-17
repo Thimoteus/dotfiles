@@ -8,7 +8,7 @@ Plug 'gmarik/vundle'
 Plug 'tpope/vim-surround'
 Plug 'chriskempson/base16-vim'
 Plug 'raichoo/purescript-vim'
-Plug 'Thimoteus/vim-purescriptConceal'
+"Plug 'Thimoteus/vim-purescriptConceal'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/promptline.vim'
@@ -18,8 +18,9 @@ Plug 'whatyouhide/vim-gotham'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-gitgutter'
-Plug 'Twinside/vim-haskellConceal'
-"Plug 'scrooloose/syntastic'
+"Plug 'Twinside/vim-haskellConceal'
+Plug 'scrooloose/syntastic'
+Plug 'joom/latex-unicoder.vim'
 "Plug 'edkolev/tmuxline.vim'
 "Plug 'itchyny/lightline.vim'
 "Plug 'ap/vim-buftabline'
@@ -40,6 +41,8 @@ set shell=/bin/bash
 
 "colorscheme
 "let base16colorspace=256  " Access colors present in 256 colorspace
+set t_Co=256
+let NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 colorscheme gruvbox
 
@@ -142,7 +145,10 @@ nmap <M-9> <Plug>AirlineSelectTab9
 
 " purescript remaps
 au FileType purescript nnoremap <Leader>t :PSCIDEtype<CR>
-au FileType purescript nnoremap <Leader>a :PSCIDEapplySuggestion<CR>
+au FileType purescript nnoremap <Leader>s :PSCIDEapplySuggestion<CR>
+au FileType purescript nnoremap <Leader>a :PSCIDEaddTypeAnnotation<CR>
+au FileType purescript nnoremap <Leader>l :PSCIDEload<CR>
+au FileType purescript nnoremap <Leader>i :PSCIDEimportIdentifier<CR>
 
 " abbreviations
 au FileType purescript iabbrev forallf ∀
@@ -185,3 +191,9 @@ if &term =~ '^xterm\\|rxvt'
   " 5 -> blinking vertical bar
   " 6 -> solid vertical bar
 endif
+
+nnoremap <C-l> :call unicoder#start(0)<CR>
+inoremap <C-l> <Esc>:call unicoder#start(1)<CR>
+vnoremap <C-l> :<C-u>call unicoder#selection()<CR>
+
+" psc-ide-vim

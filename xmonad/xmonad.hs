@@ -37,7 +37,7 @@ main = do
   xmonad . ewmh $ additionalKeysP (conf bar) keyBinds
 
 conf b =
-  defaultConfig { terminal = "urxvt"
+  defaultConfig { terminal = "konsole"
                 , focusFollowsMouse = False
                 , normalBorderColor = "#000000"
                 , focusedBorderColor = "#19c4e1"
@@ -51,22 +51,42 @@ conf b =
                 , startupHook = myStartupHook
                 , logHook = fadeInactiveLogHook 0.6
                          <> dynamicLogWithPP (defaultPP { ppOutput = hPutStrLn b
-                                                        , ppCurrent = const $ lemonColor "#53FFFF" "|"
+                                                        , ppCurrent = \ x -> lemonColor "#53FFFF" $ getWorkspaceName x
                                                         , ppHidden = \ x -> case x of
                                                                               "NSP" -> ""
-                                                                              _ -> "_"
+                                                                              _ -> getWorkspaceName x
                                                         , ppHiddenNoWindows = \ x ->
                                                           case x of
                                                               "NSP" -> ""
-                                                              y -> lemonColor "#000000" "_"
-                                                        , ppWsSep = " "
+                                                              y -> lemonColor "#0b3c4d" $ getWorkspaceName y
                                                         , ppTitle = renderTitle
                                                         , ppLayout = const ""
+                                                        , ppOrder = alignLemonbarSections
+                                                        , ppSep = ""
+                                                        , ppWsSep = " "
                                                         })
                 , modMask = mod4Mask }
 
+getWorkspaceName y = y --workspaceNames !! r y
+  where
+  r "1" = 0
+  r "2" = 1
+  r "3" = 2
+  r "4" = 3
+  r "5" = 4
+  r "6" = 5
+  r "7" = 6
+  r "8" = 7
+  r "9" = 8
+  r _ = 0
+  workspaceNames = [ "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ" ]
+
+alignLemonbarSections :: [String] -> [String]
+alignLemonbarSections (x:xs) = xs ++ ["%{r}" <> x]
+alignLemonbarSections _ = []
+
 renderTitle :: String -> String
-renderTitle = unwords . map f . words
+renderTitle = take 160 . unwords . map f . words
   where
   f s | "/home/archurito" `isInfixOf` s = "~" <> drop 15 s
   f s = s
@@ -75,11 +95,11 @@ lemonColor :: String -> String -> String
 lemonColor c str = "%{F" <> c <> "}" <> str <> "%{F-}"
 
 myStartupHook = do
-  spawn $ "node ~/dotfiles/xmonad/date_script | " <> myLemonBar 50 658
-  spawn $ "node ~/dotfiles/xmonad/right_script | " <> myLemonBar 658 708
+  spawn $ "node ~/dotfiles/xmonad/right_script | " <> myLemonBar 643 723
 
-myXMonadBar = myLemonBar 658 0
+myXMonadBar = myLemonBar 723 0
 
+-- (width, x-pos) -> lemonbar
 myLemonBar :: Int -> Int -> String
 myLemonBar w x = "lemonbar -p -B '#AA000000' -o -4 -g " <> show w <> "x9+" <> show x <> " -f '-*-bitocra7-*-*-*-*-*-*-*-*-*-*-*-*' -f '-*-creep-*-*-*-*-*-*-*-*-*-*-*-*'"
 
@@ -97,7 +117,7 @@ j4dmenudesktop = "j4-dmenu-desktop --dmenu=\"dmenu -i -b -dim 0.5 -fn lemon-7 -p
 dmenuStyle = init $ drop 32 j4dmenudesktop
 passmenu = "passmenu " ++ dmenuStyle
 
-keyBinds = [ ("M-<Return>", spawn "urxvt -e fish")
+keyBinds = [ ("M-<Return>", spawn "konsole")
            , ("<Print>", spawn "scrot ~/Pictures/screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png")
            , ("M-<Space>", spawn j4dmenudesktop)
            , ("M-q", spawn "xmonad --recompile && killall lemonbar && xmonad --restart")

@@ -24,7 +24,7 @@ URxvt.scrollBar: false
 ! URLs
 URxvt.perl-ext-common: default,selection-to-clipboard,url-select,keyboard-select
 URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.url-select.launcher: /usr/bin/firefox
+URxvt.url-select.launcher: /usr/bin/qutebrowser
 URxvt.url-select.underline: true
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 

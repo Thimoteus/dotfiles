@@ -65,7 +65,7 @@ fi
 
 #nitrogen --restore &
 #xfce4-power-manager &
-feh --bg-fill ~/Pictures/background.jpg &
+feh --bg-tile ~/Pictures/tiles/stardust.png &
 synclient HorizTwoFingerScroll=1 TapButton1=0 TapButton2=3 TapButton3=2 &
 xset m 5/1 0 &
 xsetroot -cursor_name left_ptr &
