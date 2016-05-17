@@ -3,10 +3,10 @@
 #include "/home/thimoteus/.colors/gotham.xresources"
 
 ! antialias for performance(?) reasons
-URxvt.letterSpace: 1
+!URxvt.letterSpace: 1
 !#define termfont xft:bitbuntufull:size=8,xft:Inconsolata For Powerline:size=10:antialias=true,xft:lemon:size=7,xft:TamzenForPowerline:size=10,xft:Terminess Powerline:size=10,xft:FontAwesome:size=8
-#define termfont xft:crepe:size=7:minspace=true,xft:Inconsolata For Powerline:pixelsize=16:antialias=true,-*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*
-!-*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*,xft:Inconsolata For Powerline:size=10:antialias=true
+!#define termfont xft:creep:size=6:minspace=true,xft:Inconsolata For Powerline:pixelsize=16:antialias=true,-*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*
+#define termfont -*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*,xft:Inconsolata For Powerline:size=10:antialias=true
 
 URxvt*font: termfont
 !URxvt*boldFont: termfont

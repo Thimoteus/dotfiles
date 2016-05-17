@@ -8,7 +8,7 @@ Plug 'gmarik/vundle'
 Plug 'tpope/vim-surround'
 Plug 'chriskempson/base16-vim'
 Plug 'raichoo/purescript-vim'
-Plug 'Thimoteus/vim-purescriptConceal'
+"Plug 'Thimoteus/vim-purescriptConceal'
 Plug 'bling/vim-airline'
 Plug 'edkolev/promptline.vim'
 Plug 'morhetz/gruvbox'
@@ -18,14 +18,14 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-gitgutter'
 Plug 'Twinside/vim-haskellConceal'
-"Plug 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 "Plug 'edkolev/tmuxline.vim'
 "Plug 'itchyny/lightline.vim'
 "Plug 'ap/vim-buftabline'
 "Plug 'terryma/vim-multiple-cursors'
 "Plug 'bling/vim-bufferline'
 "Plug 'Thimoteus/vim-slime'
-"Plug 'idris-hackers/idris-vim'
+Plug 'idris-hackers/idris-vim'
 "Plug 'travitch/hasksyn'
 
 call plug#end()
@@ -152,6 +152,7 @@ nmap <M-9> <Plug>AirlineSelectTab9
 " purescript remaps
 au FileType purescript nnoremap <Leader>t :PSCIDEtype<CR>
 au FileType purescript nnoremap <Leader>a :PSCIDEapplySuggestion<CR>
+au FileType purescript nnoremap <Leader>l :PSCIDEload<CR>
 
 " abbreviations
 au FileType purescript iabbrev forallf ∀
