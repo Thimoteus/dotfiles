@@ -7,9 +7,10 @@ call plug#begin('~/.nvim/plugged')
 Plug 'gmarik/vundle'
 Plug 'tpope/vim-surround'
 Plug 'chriskempson/base16-vim'
-Plug 'raichoo/purescript-vim'
-"Plug 'Thimoteus/vim-purescriptConceal'
+Plug 'Thimoteus/purescript-vim'
+Plug 'Thimoteus/vim-purescriptConceal'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/promptline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'frigoeu/psc-ide-vim'
@@ -17,30 +18,34 @@ Plug 'whatyouhide/vim-gotham'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-gitgutter'
-Plug 'Twinside/vim-haskellConceal'
 Plug 'scrooloose/syntastic'
-"Plug 'edkolev/tmuxline.vim'
-"Plug 'itchyny/lightline.vim'
-"Plug 'ap/vim-buftabline'
-"Plug 'terryma/vim-multiple-cursors'
-"Plug 'bling/vim-bufferline'
-"Plug 'Thimoteus/vim-slime'
+Plug 'joom/latex-unicoder.vim'
 Plug 'idris-hackers/idris-vim'
-"Plug 'travitch/hasksyn'
+Plug 'eagletmt/ghcmod-vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Twinside/vim-haskellConceal'
+Plug 'hkupty/nvimux'
 
 call plug#end()
 
 "highlighting
 syntax on
 filetype plugin indent on
+augroup vimrc_todo
+      au!
+      au Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|OPTIMIZE|XXX):/
+                \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyTodo Todo
 
 " POSIX compatibility
 set shell=/bin/bash
 
 "colorscheme
-let base16colorspace=256  " Access colors present in 256 colorspace
-set background=light
-"colorscheme base16-grayscale
+"let base16colorspace=256  " Access colors present in 256 colorspace
+"set t_Co=256
+let NVIM_TUI_ENABLE_TRUE_COLOR=1
+set background=dark
 colorscheme gruvbox
 
 " annoying
@@ -54,12 +59,6 @@ nnoremap <M-l> :bn<cr>
 vnoremap <C-x> "+x
 vnoremap <C-c> "+y
 vnoremap <C-p> "+p
-
-" destroy tabs -- conflicts with moving focus from pane to pane
-" nnoremap <C-w> :bd<cr>
-
-"displays line numbers
-"set number
 
 "shows which line the cursor is on
 set cursorline
@@ -90,18 +89,6 @@ set laststatus=2
 " annoying paste indent fix
 set copyindent
 
-" lightline stuff
-
-"let g:lightline = {
-      "\ 'colorscheme': 'powerline',
-      "\ 'component': {
-      "\   'readonly': '%{&readonly?"":""}',
-      "\ },
-      "\ 'subseparator': { 'left': '', 'right': '' },
-      "\ 'separator': { 'left': '', 'right': '' },
-      "\ }
-
-
 " visible line for wrapping
 " 253 for light, 233/236 for dark
 highlight ColorColumn ctermbg=234
@@ -112,13 +99,13 @@ hi CursorLine ctermbg=234 ctermfg=NONE guibg=#ffffff guifg=NONE cterm=NONE gui=N
 set splitright
 
 " disable highlighting search terms with space
-:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+au FileType haskell nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>:GhcModTypeClear<CR>
 " markdown highlighting
 let g:markdown_fenced_languages = ['purescript']
 
 " syntax highlighting
-au BufRead,BufNewFile *.sand set filetype=clojure
+au BufRead,BufNewFile *.sand set filetype=lisp
 augroup markdown
     au!
     au BufNewFile,BufRead *.md,*.markdown,*.litps setlocal filetype=markdown
@@ -137,7 +124,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#whitespace#enabled = 1
-let g:airline_theme = "gotham"
+let g:airline_theme = "gruvbox"
 nmap <M-1> <Plug>AirlineSelectTab1
 nmap <M-2> <Plug>AirlineSelectTab2
 nmap <M-3> <Plug>AirlineSelectTab3
@@ -147,29 +134,48 @@ nmap <M-6> <Plug>AirlineSelectTab6
 nmap <M-7> <Plug>AirlineSelectTab7
 nmap <M-8> <Plug>AirlineSelectTab8
 nmap <M-9> <Plug>AirlineSelectTab9
-"gruvbox
 
 " purescript remaps
 au FileType purescript nnoremap <Leader>t :PSCIDEtype<CR>
 au FileType purescript nnoremap <Leader>a :PSCIDEapplySuggestion<CR>
 au FileType purescript nnoremap <Leader>l :PSCIDEload<CR>
-
-" abbreviations
-au FileType purescript iabbrev forallf ∀
-au FileType purescript iabbrev <<<f ∘
-au FileType purescript iabbrev *f ×
-au FileType purescript iabbrev &&f ∧
-au FileType purescript iabbrev \|\|f ∨
-au FileType purescript iabbrev elemf ∈
-au FileType purescript iabbrev notElemf ∉
-au FileType purescript iabbrev notEqf ≠
-au FileType purescript iabbrev ltef ≤
-au FileType purescript iabbrev gtef ≥
-au FileType purescript iabbrev =>f ⇒
-au FileType purescript iabbrev ->f →
-au FileType purescript iabbrev <=f ⇐
-au FileType purescript iabbrev <-f ←
+let g:psc_ide_syntastic_mode = 1
 
 " for concealing
 set concealcursor=
 
+" promptline
+let g:promptline_preset='full'
+let g:promptline_theme='airline'
+
+" purescript concealing
+let g:psconcealopts=""
+
+" bash-like tab-completion for filenames
+set wildmode=longest,list,full
+set wildmenu
+
+" syntastic
+nnoremap <Leader>s :SyntasticToggleMode<CR>
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+" haskell stuff
+au FileType haskell nnoremap <Leader>t :GhcModType<CR>
+au FileType haskell nnoremap <Leader>a :GhcModTypeInsert<CR>
+au FileType haskell nnoremap <Leader>x :GhcModCheckAndLintAsync<CR>
+autocmd BufWritePost *.hs GhcModCheckAsync
+
+" nvimux
+let g:nvimux_prefix='<C-a>'
+let nvimux_open_term_by_default=1
+let g:nvimux_new_term='term fish'
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %

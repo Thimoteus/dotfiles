@@ -65,7 +65,8 @@ fi
 
 #nitrogen --restore &
 #feh --randomize --bg-fill ~/Pictures/wallpapers/* &
-feh --bg-fill ~/Pictures/wallpapers/gotham.png &
+urxvtd -q -f -o
+feh --bg-fill ~/Pictures/wallpapers/trigomnometry.jpg &
 xfce4-power-manager &
 xset m 5/1 0 &
 xsetroot -cursor_name left_ptr &

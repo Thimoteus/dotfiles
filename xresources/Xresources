@@ -1,22 +1,19 @@
-! #include "/home/thimoteus/.colors/base16-grayscale.dark.256.xresources"
-! #include "/home/thimoteus/.colors/gruvbox-light.xresources"
-#include "/home/thimoteus/.colors/gotham.xresources"
+! #include "/home/thimoteus/.colors/base16-embers.dark.256.xresources"
+#include "/home/thimoteus/.colors/gruvbox-urxvt256.xresources"
+! #include "/home/thimoteus/.colors/gotham.xresources"
 
-! antialias for performance(?) reasons
-!URxvt.letterSpace: 1
-!#define termfont xft:bitbuntufull:size=8,xft:Inconsolata For Powerline:size=10:antialias=true,xft:lemon:size=7,xft:TamzenForPowerline:size=10,xft:Terminess Powerline:size=10,xft:FontAwesome:size=8
-!#define termfont xft:creep:size=6:minspace=true,xft:Inconsolata For Powerline:pixelsize=16:antialias=true,-*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*
-#define termfont -*-lemon-*-*-normal--*-*-*-*-*-*-iso10646-*,xft:Inconsolata For Powerline:size=10:antialias=true
+#define termfont xft:monad:pixelsize=9:antialias=true
+! -*-monad-*-*-*-*-*-*-*-*-*-*-*-*
 
 URxvt*font: termfont
-!URxvt*boldFont: termfont
+URxvt*boldFont: termfont
 URxvt*italicFont: termfont
 URxvt*boldItalicFont: termfont
 
 URxvt*selectToClipboard: true
 xterm*termName: xterm-256color
 
-URxvt*boldMode:      on
+URxvt*boldMode:      off
 URxvt*colorMode:     on
 URxvt*colorBDMode:   on
 URxvt*colorULMode:   on
@@ -42,7 +39,7 @@ URxvt.scrollBar: false
 ! URLs
 URxvt.perl-ext-common: default,selection-to-clipboard,url-select,keyboard-select
 URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.url-select.launcher: /usr/bin/icecat
+URxvt.url-select.launcher: /usr/bin/opera-developer
 URxvt.url-select.underline: true
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 

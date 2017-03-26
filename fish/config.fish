@@ -1,5 +1,5 @@
 # set theme
-set BASE16_THEME "grayscale"
+set BASE16_THEME "embers"
 set BASE16_INTENSITY "dark"
 set BASE16_SHELL "$HOME/.config/base16-shell/base16-$BASE16_THEME.$BASE16_INTENSITY.sh"
 #eval sh $BASE16_SHELL
@@ -22,7 +22,7 @@ function blacklist
 end
 
 # enable vi mode
-fish_vi_mode
+fish_vi_key_bindings
 
 # worthless
 #bass source ~/.nvm/nvm.sh ';' nvm use stable
@@ -42,7 +42,10 @@ source ~/dotfiles/fish/pass.fish-completion
 # add bin path
 set PATH ~/bin/ $PATH
 set PATH /usr/bin/core_perl $PATH
-set PATH ~/.local/bin/ $PATH
+#set PATH ~/.local/bin/ $PATH
+
+# smlnj stuff
+set PATH /usr/local/sml/bin/ $PATH
 
 #bass source ~/dotfiles/base16-chalk.dark.sh
 
@@ -53,4 +56,5 @@ set RANGER_LOAD_DEFAULT_RC FALSE
 alias pastebin "curl -F 'sprunge=<-' http://sprunge.us"
 alias irc "tmux new-session -A -s irc"
 alias zirc "ssh -t thimotron@192.168.1.5 tmux new-session -A -s irc"
+alias vps "ssh -t thimoteus@144.217.6.205 -p 51413 tmux new-session -A -s evante"
 alias gotosleep "xautolock -time 60 -locker 'systemctl poweroff'"
