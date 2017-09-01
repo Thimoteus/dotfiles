@@ -1,36 +1,54 @@
-"package manager
-set nocompatible
-filetype off
+if empty(glob('~/.config/nvim/autoload'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/autoload')
 
-Plug 'gmarik/vundle'
 Plug 'tpope/vim-surround'
-Plug 'chriskempson/base16-vim'
-Plug 'Thimoteus/purescript-vim'
-Plug 'Thimoteus/vim-purescriptConceal'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'edkolev/promptline.vim'
-Plug 'morhetz/gruvbox'
-Plug 'frigoeu/psc-ide-vim'
-Plug 'whatyouhide/vim-gotham'
+Plug 'frigoeu/psc-ide-vim', {'for': 'purescript', 'on': ['Ptype', 'Pimport', 'Pgoto']}
+Plug 'raichoo/purescript-vim', {'for': 'purescript'}
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/syntastic'
-Plug 'joom/latex-unicoder.vim'
-Plug 'idris-hackers/idris-vim'
-Plug 'eagletmt/ghcmod-vim'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Twinside/vim-haskellConceal'
-Plug 'hkupty/nvimux'
+Plug 'scrooloose/syntastic', {'for': ['purescript', 'javascript', 'rust']}
+Plug 'joom/latex-unicoder.vim', {'for': ['haskell', 'purescript']}
+Plug 'walm/jshint.vim', {'for': 'javascript'}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'chriskempson/base16-vim'
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'junegunn/vim-easy-align'
+Plug 'mhinz/vim-startify'
+Plug 'daylerees/colour-schemes', { 'rtp': 'vim/' }
+Plug 'parsonsmatt/intero-neovim', {'for': 'haskell'}
+Plug 'neomake/neomake', {'for': 'haskell'}
+Plug 'itchyny/vim-haskell-indent', {'for': 'haskell'}
+Plug 'romainl/Apprentice'
+Plug 'morhetz/gruvbox'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/vim-slash'
+
+" Plug 'whatyouhide/vim-gotham'
+" Plug 'eagletmt/ghcmod-vim'
+" Plug 'Twinside/vim-haskellConceal'
+" Plug 'Thimoteus/vim-purescriptConceal'
+" Plug 'itchyny/lightline.vim'
+" Plug 'ap/vim-buftabline'
+" Plug 'Shougo/vimproc.vim'
 
 call plug#end()
 
-"highlighting
-syntax on
-filetype plugin indent on
+" " show line no's
+" set number
+
+" hide default mode indicator
+set noshowmode
+
+" vert splits
+set fillchars=""
+
 augroup vimrc_todo
       au!
       au Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|OPTIMIZE|XXX):/
@@ -42,18 +60,29 @@ hi def link MyTodo Todo
 set shell=/bin/bash
 
 "colorscheme
-"let base16colorspace=256  " Access colors present in 256 colorspace
-"set t_Co=256
-let NVIM_TUI_ENABLE_TRUE_COLOR=1
+" let base16colorspace=256  " Access colors present in 256 colorspace
+" let NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
-colorscheme gruvbox
+set t_Co=256
+set termguicolors
+colorscheme gruvbox " base16-harmonic16-light
 
 " annoying
 map <C-p> <Nop>
 
-" tab switching
+" " tab switching
 nnoremap <M-h> :bp<cr>
 nnoremap <M-l> :bn<cr>
+" nnoremap <M-1> :b 1<cr>
+" nnoremap <M-2> :b 2<cr>
+" nnoremap <M-3> :b 3<cr>
+" nnoremap <M-4> :b 4<cr>
+" nnoremap <M-5> :b 5<cr>
+" nnoremap <M-6> :b 6<cr>
+" nnoremap <M-7> :b 7<cr>
+" nnoremap <M-8> :b 8<cr>
+" nnoremap <M-9> :b 9<cr>
+" nnoremap <M-0> :b 10<cr>
 
 " copy+paste
 vnoremap <C-x> "+x
@@ -62,6 +91,11 @@ vnoremap <C-p> "+p
 
 "shows which line the cursor is on
 set cursorline
+
+" cursor shape changes
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+  \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 "lets you open new buffers without writing changes to old ones
 set hidden
@@ -86,21 +120,31 @@ inoremap <tab> <c-r>=Inserttabwrapper()<cr>
 " shows lightline
 set laststatus=2
 
+" set leader
+let mapleader = "\<Space>"
+
 " annoying paste indent fix
 set copyindent
 
 " visible line for wrapping
 " 253 for light, 233/236 for dark
-highlight ColorColumn ctermbg=234
+highlight ColorColumn guibg=#1f1f1f
 set colorcolumn=80
-hi CursorLine ctermbg=234 ctermfg=NONE guibg=#ffffff guifg=NONE cterm=NONE gui=NONE
+hi CursorLine ctermbg=234 ctermfg=234 guibg=#1f1f1f guifg=NONE cterm=NONE gui=NONE
 
 " makes split windows default to the right
 set splitright
 
 " disable highlighting search terms with space
-nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-au FileType haskell nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>:GhcModTypeClear<CR>
+" nnoremap <silent> <Leader><Space> :nohlsearch<Bar>:echo<CR>
+" au FileType haskell nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>:GhcModTypeClear<CR>
+
+" other searches
+set gdefault
+set ignorecase
+set smartcase
+set incsearch
+
 " markdown highlighting
 let g:markdown_fenced_languages = ['purescript']
 
@@ -112,7 +156,7 @@ augroup markdown
 augroup END
 
 " vim-slime
-let g:slime_target="tmux"
+" let g:slime_target="tmux"
 
 " invisibles
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
@@ -124,7 +168,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#whitespace#enabled = 1
-let g:airline_theme = "gruvbox"
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline_theme = "distinguished"
+let g:airline_inactive_collapse = 0
 nmap <M-1> <Plug>AirlineSelectTab1
 nmap <M-2> <Plug>AirlineSelectTab2
 nmap <M-3> <Plug>AirlineSelectTab3
@@ -136,17 +182,29 @@ nmap <M-8> <Plug>AirlineSelectTab8
 nmap <M-9> <Plug>AirlineSelectTab9
 
 " purescript remaps
-au FileType purescript nnoremap <Leader>t :PSCIDEtype<CR>
-au FileType purescript nnoremap <Leader>a :PSCIDEapplySuggestion<CR>
-au FileType purescript nnoremap <Leader>l :PSCIDEload<CR>
+" au FileType purescript nnoremap <Leader>t :<C-U>call PSCIDEtype(PSCIDEgetKeyword(), v:true)<CR>
+" au FileType purescript nnoremap <Leader>a :<C-U>call PSCIDEapplySuggestion()<CR>
+" au FileType purescript nnoremap <Leader>l :<C-U>call PSCIDEload()<CR>
+" au FileType purescript nnoremap <Leader>m :<C-U>call PSCIDEimportIdentifier(PSCIDEgetKeyword())<CR>
+" au FileType purescript nnoremap <Leader>d :<C-U>call PSCIDEgoToDefinition("", PSCIDEgetKeyword())<CR>
+au FileType purescript nnoremap <Leader>t :Ptype<CR>
+au FileType purescript nnoremap <Leader>a :Papply<CR>
+au FileType purescript nnoremap <Leader>l :Pload<CR>
+au FileType purescript nnoremap <Leader>m :Pimport<CR>
+au FileType purescript nnoremap <Leader>d :Pgoto<CR>
 let g:psc_ide_syntastic_mode = 1
+
+" purescript syntax
+autocmd BufNewFile,BufRead *.purs set syntax=purescript
+let g:purescript_indent_where = 2
+let g:purescript_indent_do = 2
 
 " for concealing
 set concealcursor=
 
 " promptline
 let g:promptline_preset='full'
-let g:promptline_theme='airline'
+let g:promptline_theme='lightline'
 
 " purescript concealing
 let g:psconcealopts=""
@@ -156,26 +214,48 @@ set wildmode=longest,list,full
 set wildmenu
 
 " syntastic
-nnoremap <Leader>s :SyntasticToggleMode<CR>
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" nnoremap <Leader>s :SyntasticToggleMode<CR>
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " haskell stuff
-au FileType haskell nnoremap <Leader>t :GhcModType<CR>
-au FileType haskell nnoremap <Leader>a :GhcModTypeInsert<CR>
-au FileType haskell nnoremap <Leader>x :GhcModCheckAndLintAsync<CR>
-autocmd BufWritePost *.hs GhcModCheckAsync
+au FileType haskell nnoremap <Leader>t :InteroGenericType<CR>
+au FileType haskell nnoremap <Leader>a :InteroTypeInsert<CR>
+au FileType haskell nnoremap <Leader>d :InteroGoToDef<CR>
+au FileType haskell nnoremap <Leader>l :InteroStart<CR>
+au FileType haskell nnoremap <Leader>k :InteroKill<CR>
+autocmd BufWritePost *.hs InteroReload
 
 " nvimux
 let g:nvimux_prefix='<C-a>'
 let nvimux_open_term_by_default=1
-let g:nvimux_new_term='term fish'
+" let g:nvimux_new_term='term fish'
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
+
+" loclist
+nnoremap <Leader>c :lclose<CR>
+
+" rust
+let g:syntastic_rust_checkers = ['cargo']
+
+" easy-align"
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" startify
+let g:startify_change_to_dir = 0
+
+nnoremap <Leader>w :bp\|bd #<CR>
+
+" nerdtree
+nnoremap <C-n> :NERDTreeToggle<CR>
