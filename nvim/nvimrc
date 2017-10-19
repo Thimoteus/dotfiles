@@ -29,6 +29,7 @@ Plug 'romainl/Apprentice'
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/vim-slash'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Plug 'whatyouhide/vim-gotham'
 " Plug 'eagletmt/ghcmod-vim'
@@ -69,6 +70,9 @@ colorscheme gruvbox " base16-harmonic16-light
 
 " annoying
 map <C-p> <Nop>
+
+" fzf
+nnoremap <C-p> :FZF<cr>
 
 " " tab switching
 nnoremap <M-h> :bp<cr>
@@ -259,3 +263,9 @@ nnoremap <Leader>w :bp\|bd #<CR>
 
 " nerdtree
 nnoremap <C-n> :NERDTreeToggle<CR>
+
+" omnicompletion
+set omnifunc=syntaxcomplete#Complete
+
+nmap <C-_> Vgc
+vmap <C-_> gc
