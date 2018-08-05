@@ -8,7 +8,7 @@ echo "export KDEWM=xmonad" > ~/.config/plasma-workspace/env/wm.sh
 sudo apt install xmonad
 mkdir -p ~/.xmonad
 cp xmonad.hs ~/.xmonad/
-xmonad --compile
+xmonad --recompile
 
 # install stack
 #curl -sSL https://get.haskellstack.org/ | sh
