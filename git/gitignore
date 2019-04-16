@@ -1,8 +1,0 @@
-*.tix
-*.swp
-*.swo
-.psci*
-.pulp-cache/
-output/
-npm-debug.log
-.psa-stash
